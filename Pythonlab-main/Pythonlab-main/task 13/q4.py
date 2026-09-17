@@ -1,0 +1,8 @@
+''' write a pp to print an inverted right angled triangle using stars.
+'''
+n = int(input("Enter n: "))
+
+for i in range(n, 0, -1):
+    for j in range(i):
+        print("*", end=" ")
+    print()
