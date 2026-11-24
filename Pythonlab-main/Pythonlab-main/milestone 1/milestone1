@@ -1,0 +1,24 @@
+Milestone 1 - Estimate one e-waste collection
+
+participant = input("Participant name: ").strip().title()
+device = input("Device category: ").strip().title()
+quantity = int(input("Quantity: "))
+unit_weight = float(input("Unit weight (kg): "))
+recovery_pct = float(input("Recovery (%): "))
+rate = float(input("Reward Rate (Rs. per kg): "))
+
+total_weight = quantity * unit_weight
+recyclable_weight = total_weight * recovery_pct / 100
+estimated_reward = recyclable_weight * rate
+
+collection_code = participant[:3].upper() + device[:2].upper()
+
+print("\n===== SINGLE COLLECTION ESTIMATE =====")
+print("Participant:", participant)
+print("Device category:", device)
+print("Type of quantity:", type(quantity))
+print("Type of unit weight:", type(unit_weight))
+print("Total weight:", total_weight, "kg")
+print("Recyclable weight:", recyclable_weight, "kg")
+print("Estimated reward: Rs.", round(estimated_reward, 2))
+print("Collection code:", collection_code)
