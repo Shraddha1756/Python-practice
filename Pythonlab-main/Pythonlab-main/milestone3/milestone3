@@ -1,0 +1,74 @@
+Milestone 3 - EWasteCollection class
+
+CATALOGUE = {
+"Smartphone": (0.18, 40),
+"Laptop": (2.20, 55),
+"Charger": (0.12, 20),
+"Keyboard": (0.65, 15)
+}
+
+
+class EWasteCollection:
+
+centre_name = "Jammu Community Recycling Centre"
+
+def __init__(self, collection_id, participant_name, items=None):
+self.collection_id = collection_id.strip().upper()
+self.participant_name = participant_name.strip().title()
+self.items = []
+
+if items:
+for category, quantity in items:
+self.add_item(category, quantity)
+
+def add_item(self, category, quantity):
+category = category.strip().title()
+CATALOGUE[category]
+quantity = int(quantity)
+
+if quantity <= 0:
+raise ValueError("quantity must be greater than zero")
+
+self.items.append((category, quantity))
+
+def total_weight(self):
+return sum(CATALOGUE[c][0] * q for c, q in self.items)
+
+def base_reward(self):
+return sum(CATALOGUE[c][0] * q * CATALOGUE[c][1]
+for c, q in self.items)
+
+def total_reward(self):
+reward = self.base_reward()
+
+if self.total_weight() >= 5:
+reward *= 1.10
+
+return reward
+
+def size_class(self):
+weight = self.total_weight()
+
+if weight < 3:
+return "SMALL"
+if weight <= 8:
+return "MEDIUM"
+
+return "LARGE"
+
+def __len__(self):
+return sum(q for _, q in self.items)
+
+def display_summary(self):
+print(f"\n===== COLLECTION {self.collection_id} =====")
+print("Centre:", self.centre_name)
+print("Participant:", self.participant_name)
+
+for category, quantity in self.items:
+print(f"{category:<11} x {quantity}")
+
+print("Devices:", len(self))
+print(f"Total weight: {self.total_weight():.2f} kg")
+print("Size class:", self.size_class())
+print(f"Base reward: Rs. {self.base_reward():.2f}")
+print(f"Final reward: Rs. {self.total_reward():.2f}")
