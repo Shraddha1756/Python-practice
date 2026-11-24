@@ -1,0 +1,50 @@
+# recycling_utils.py
+
+import math
+
+CATALOGUE = {
+"Smartphone": (0.18, 40),
+"Laptop": (2.20, 55),
+"Charger": (0.12, 20),
+"Keyboard": (0.65, 15)
+}
+
+
+def total_weight(items, catalogue):
+weight = 0.0
+
+for category, quantity in items:
+unit_weight, _ = catalogue[category]
+weight += unit_weight * quantity
+
+return weight
+
+
+def reward(items, catalogue, bonus_rate=0.10, threshold_kg=5.0):
+base = 0.0
+
+for category, quantity in items:
+unit_weight, rate = catalogue[category]
+base += unit_weight * quantity * rate
+
+if total_weight(items, catalogue) >= threshold_kg:
+return base * (1 + bonus_rate)
+
+return base
+
+
+def bins_required(weight, capacity_kg=5.0):
+return math.ceil(weight / capacity_kg)
+
+
+def generate_metric(items, catalogue, metric_function):
+return metric_function(items, catalogue)
+
+
+def size_class(weight):
+if weight < 3:
+return "SMALL"
+if weight <= 8:
+return "MEDIUM"
+
+return "LARGE"
